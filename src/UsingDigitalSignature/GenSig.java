@@ -66,7 +66,7 @@ public class GenSig {
             keyfos.write(key);
             keyfos.close();
             
-            System.out.println("GenSig's run successfully");
+            System.out.println("GenSig's run successfully!");
         } catch (Exception e) {
             System.err.println("Caught exception " + e.toString());
         }
