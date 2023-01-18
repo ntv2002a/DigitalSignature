@@ -18,9 +18,9 @@ public class GenSig {
 
     public static void main(String[] args) {
         /* Generate a DSA Signature */
-        File f = new File("src/UsingDigitalSignature/FileToSign.txt");
-        File fsig = new File("src/UsingDigitalSignature/Signature.txt");
-        File fkey = new File("src/UsingDigitalSignature/VuPublicKey.txt");
+        File f = new File("src/UsingDigitalSignature/FileNeeded/FileToSign.txt");
+        File fsig = new File("src/UsingDigitalSignature/FileNeeded/Signature.txt");
+        File fkey = new File("src/UsingDigitalSignature/FileNeeded/VuPublicKey.txt");
 
         try {
 
