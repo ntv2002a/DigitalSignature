@@ -255,3 +255,7 @@ For example:
 ```
 
 ---
+
+## About
+* [Generating and Verifying Signatures](https://docs.oracle.com/javase/tutorial/security/apisign/index.html)
+* [Weaknesses and Alternatives](https://docs.oracle.com/javase/tutorial/security/apisign/enhancements.html)
