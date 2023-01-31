@@ -8,6 +8,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.*;
 
 /**
@@ -44,30 +45,36 @@ public class GenSig {
 
             //Supply the Signature Object the Data to be Signed
             FileInputStream fis = new FileInputStream(f);
-            BufferedInputStream bufin = new BufferedInputStream(fis);
-            byte[] buffer = new byte[1024];
-            int len;
-            while ((len = bufin.read(buffer)) >= 0) {
-                sign.update(buffer, 0, len);
+            try ( BufferedInputStream bufin = new BufferedInputStream(fis)) {
+                byte[] buffer = new byte[1024];
+                int len;
+                while ((len = bufin.read(buffer)) >= 0) {
+                    sign.update(buffer, 0, len);
+                }
+                
+                bufin.close();
             }
-            bufin.close();
 
             //Generate the Signature
             byte[] realSign = sign.sign();
 
             //Save the Signature in a file
-            FileOutputStream sigfos = new FileOutputStream(fsig);
-            sigfos.write(realSign);
-            sigfos.close();
+            try ( FileOutputStream sigfos = new FileOutputStream(fsig)) {
+                sigfos.write(realSign);
+                
+                sigfos.close();
+            }
 
             //Save the Public Key in a file
             byte[] key = pub.getEncoded();
-            FileOutputStream keyfos = new FileOutputStream(fkey);
-            keyfos.write(key);
-            keyfos.close();
-            
+            try ( FileOutputStream keyfos = new FileOutputStream(fkey)) {
+                keyfos.write(key);
+                
+                keyfos.close();
+            }
+
             System.out.println("GenSig's run successfully!");
-        } catch (Exception e) {
+        } catch (IOException | InvalidKeyException | NoSuchAlgorithmException | NoSuchProviderException | SignatureException e) {
             System.err.println("Caught exception " + e.toString());
         }
     }
